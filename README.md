@@ -11,11 +11,47 @@ https://egillespie.github.io/web-component-intro
 
 ### About the presenter
 
+- Erik Gillespie `erik.gillespie@gmail.com`
+
+- My pronouns are he/him or they/them
+
+- I occasionally teach web dev at MSU
+
+- I help out at Lansing Codes and Lansing Makers Network
+
+- I'm a board gamer and reader
+
+- I like finding ways to make my life greener and kinder to others
+
+- Mostly I homeschool my kiddo
+
 ### Helpful skills to know
+
+Web components will be easier to use if you're comfortable with:
+
+- Basic JavaScript syntax
+
+- HTML
+
+- Accessing the DOM with JavaScript
+
+- ES6 class syntax
+
+- A little CSS
 
 ### Web components defined
 
 An API in all popular browsers that lets you create custom elements.
+
+- Declare a class that extends `HTMLElement`
+
+- Write a constructor with no arguments and calls `super()`
+
+- Use `customElements.define('tag-name', ClassName)` to register your web component
+
+- Custom element names must contain a hyphen (`-`)
+
+- You must include open and close tags in the HTML: `<my-tag></my-tag>`
 
 ### x. Show the page title
 
@@ -106,3 +142,17 @@ https://jsfiddle.net/elgillespie/y3dtcr16/
 ### x. Automatically set content with slots
 
 https://jsfiddle.net/elgillespie/qxemtbck/
+
+### Styling a web component
+
+- Put a `<style></style>` tag at the top of your component's template
+
+- Avoid linking to an external stylesheet (it can cause flickering)
+
+- Use a Shadow DOM so your styles only affect your component
+
+- Use the `:host` selector to apply default styles like `display: block`
+
+### x. A stylish page title component
+
+https://jsfiddle.net/elgillespie/7szafo8c/
