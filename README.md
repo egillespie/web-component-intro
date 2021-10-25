@@ -156,3 +156,52 @@ https://jsfiddle.net/elgillespie/qxemtbck/
 ### x. A stylish page title component
 
 https://jsfiddle.net/elgillespie/7szafo8c/
+
+### Writing access methods for web components
+
+Writing getters, setters, and other access functions for a web component will
+make it simpler to use in JavaScript.
+
+- Use `get <attribute> ()` and `this.getAttribute('<attribute>')` together to
+  read attribute values programmatically.
+
+- Use `set <attribute> (value)`, `this.setAttribute('<attribute>', value)`, and
+  `this.removeAttribute('<attribute>')` to modify attributes in JavaScript.
+
+- Make sure all data needed by your web component can be set from both
+  JavaScript _and_ HTML!
+
+- Writing named methods for web components open up new ways to use components
+  and makes them easier to test.
+
+### x. Accessing features of a web component with JavaScript
+
+https://jsfiddle.net/elgillespie/58rL7vsu/
+
+1. Use `gameEntry.name` to get or set the `'name'` attribute
+
+2. `<game-entry name="..."></game-entry>` works too
+
+3. Use `gameEntry.rename()` to trigger the rename functionality
+
+### Making parts of web components styleable
+
+It is possible to allow external stylesheets to style web components, even if
+they are in a Shadow DOM!
+
+- Set the `part` attribute on elements in the web component to expose them to
+  external styling.
+
+- The `part` attribute is like the `class` attribute: you can add one or more
+  part names separated by spaces.
+
+- The `element-name::part(partName)` pseudo-selector is used to style exposed
+  parts of a web component in an external stylesheet.
+
+### x. Styling parts of a web component
+
+https://jsfiddle.net/elgillespie/7roqxfze/
+
+1. See how the values in the `part` attribute are used in HTML
+
+2. Each "part" can be selected and styled in external CSS
