@@ -208,8 +208,8 @@ https://jsfiddle.net/elgillespie/7roqxfze/
 
 ### Loading web components for use
 
-ES Modules are now a standard and widely available feature of all modern
-browsers. JavaScript files can easily be loaded from both HTML and other JS
+ES Modules are a standard and widely available feature of all modern
+browsers. JavaScript files can be loaded from both HTML and other JS
 files.
 
 - Put each web component in a separate file with the `.mjs` extension.
@@ -223,4 +223,33 @@ files.
 
 ### Exporting and importing a web component
 
-https://jsfiddle.net/elgillespie/qL3mzp84/
+https://egillespie.github.io/web-component-intro/examples/es-module/
+
+### An improved code editor experience
+
+Having all the JS, CSS, and HTML for a web component in a single file is
+sometimes preferred, but without syntax highlighting it's not a great
+experience.
+
+- **VS Code:** Install the `es6-string-html` extension.
+
+- **Atom:**: Run `apm install language-babel` in a terminal.
+
+- Add `/* html */` before your template string literal to enable syntax
+  highlighting.
+
+- Shout out to Benjamin Asher for sharing this! 🤘
+
+### x. Highlight those templates
+
+![Syntax highlighted string literals](screenshots/es6-highlighting.png)
+
+### Code and questions
+
+- [Presentation source code](https://github.com/egillespie/web-component-intro)
+
+- [Web Components on MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
+
+- [ES Modules on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+
+- Questions? Email `erik.gillespie@gmail.com`
