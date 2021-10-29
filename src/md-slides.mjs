@@ -1,8 +1,11 @@
+import marked from 'https://cdn.jsdelivr.net/npm/marked@3.0.8/lib/marked.esm.js'
 import syncAttribute from './helpers/sync-attribute.mjs'
 import invokeOnChangeAttribute from './helpers/invoke-on-change-attribute.mjs'
 
+console.log(marked)
+
 const html = /* html */ `
-  <pre><code></code></pre>
+  <div id="slides"></div>
 `
 
 export default class MdSlides extends HTMLElement {
@@ -10,7 +13,7 @@ export default class MdSlides extends HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.innerHTML = html
-    this._code = this.shadowRoot.querySelector('code')
+    this._slides = this.shadowRoot.getElementById('slides')
   }
 
   connectedCallback () {
@@ -34,8 +37,8 @@ export default class MdSlides extends HTMLElement {
 
   async onChangeSrc (newSrc) {
     const response = await fetch(newSrc)
-    const content = await response.text()
-    this._code.textContent = content
+    const markdown = await response.text()
+    this._slides.innerHTML = marked.parse(markdown)
   }
 }
 
