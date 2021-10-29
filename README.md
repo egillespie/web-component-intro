@@ -205,3 +205,22 @@ https://jsfiddle.net/elgillespie/7roqxfze/
 1. See how the values in the `part` attribute are used in HTML
 
 2. Each "part" can be selected and styled in external CSS
+
+### Loading web components for use
+
+ES Modules are now a standard and widely available feature of all modern
+browsers. JavaScript files can easily be loaded from both HTML and other JS
+files.
+
+- Put each web component in a separate file with the `.mjs` extension.
+
+- Use `export default` the `class` keyword when defining a web component.
+
+- Use `import ClassName from 'classname.mjs'` to load a JavaScript file from
+  another JavaScript file.
+
+- Add `type="module"` to your `<script>` tags in HTML to load ES Module files.
+
+### Exporting and importing a web component
+
+https://jsfiddle.net/elgillespie/qL3mzp84/
