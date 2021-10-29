@@ -4,19 +4,19 @@ export default class PageTitle extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     const title = document.querySelector('title').innerHTML
     this.shadowRoot.innerHTML = /* html */ `
-    	<style>
-      	:host {
-        	display: inline-block;
+      <style>
+        :host {
+          display: inline-block;
           font-family: sans-serif;
         }
         
         p {
-        	text-decoration: underline;
+          text-decoration: underline;
           font-weight: bold;
         }
       </style>
-    	<p>${title}</p>
-		`
+      <p>${title}</p>
+    `
   }
 }
 
