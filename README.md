@@ -1,15 +1,14 @@
 # Web Components by Example
 
-This is an introduction to web components using lots of examples. Even the and
-even the slides are written with web components (I know, very meta).
+**By Erik Gillespie**
+
+An introduction to web components using lots of examples. Even the slides are written with web components (I know, very meta).
 
 To experience this presention, visit:
 
 https://egillespie.github.io/web-component-intro
 
-## Outline
-
-### About the presenter
+## About the presenter
 
 - Erik Gillespie `erik.gillespie@gmail.com`
 
@@ -25,7 +24,7 @@ https://egillespie.github.io/web-component-intro
 
 - Mostly I homeschool my kiddo
 
-### Helpful skills to know
+## Helpful skills to know
 
 Web components will be easier to use if you're comfortable with:
 
@@ -39,7 +38,7 @@ Web components will be easier to use if you're comfortable with:
 
 - A little CSS
 
-### Web components defined
+## Web components defined
 
 An API in all popular browsers that lets you create custom elements.
 
@@ -53,13 +52,13 @@ An API in all popular browsers that lets you create custom elements.
 
 - You must include open and close tags in the HTML: `<my-tag></my-tag>`
 
-### x. Show the page title
+## x. Show the page title
 
 Nothing special, just a custom tag.
 
 https://jsfiddle.net/elgillespie/460mprwo/
 
-### Introducing the Shadow DOM
+## Introducing the Shadow DOM
 
 Custom elements can make use of their own DOM, known as the Shadow DOM, to protect their styles and structure from outside influence. Kinda.
 
@@ -71,21 +70,21 @@ Custom elements can make use of their own DOM, known as the Shadow DOM, to prote
 
 - Use `this.shadowRoot` instead of `this` or `document` to use common browser APIs (such as `querySelector`) within your component.
 
-### x. Page title in a Shadow DOM
+## x. Page title in a Shadow DOM
 
 Notice how page styles are not applied to elements in the Shadow DOM.
 
 https://jsfiddle.net/elgillespie/hoqc0g3p/24/
 
-### Using attributes
+## Using attributes
 
 Use `this.getAttribute` to lookup the value of an attribute on your component.
 
-### x. A radio input with a label
+## x. A radio input with a label
 
 https://jsfiddle.net/elgillespie/7kspq9md/
 
-### Handling attribute changes
+## Handling attribute changes
 
 - Define a function as `static get observedAttributes` that returns an array of attribute names you want to watch.
 
@@ -95,11 +94,11 @@ https://jsfiddle.net/elgillespie/7kspq9md/
 
 - Minimize the number of changes you make (i.e. avoid redrawing the entire component) because causing lots of changes can cause flickers and noise in screen readers!
 
-### x. Responding to attribute changes
+## x. Responding to attribute changes
 
 https://jsfiddle.net/elgillespie/ed4scw1n/
 
-### Knowing when your component is (or isn't) in a DOM
+## Knowing when your component is (or isn't) in a DOM
 
 Special functions exist that allow your components to respond to being placed in or removed from a DOM.
 
@@ -111,11 +110,11 @@ Special functions exist that allow your components to respond to being placed in
 
 - When a custom element is removed from a DOM, the browser will automatically remove its own and children event listeners so you don't usually need to manage this on your own!
 
-### x. Web components looking to connect
+## x. Web components looking to connect
 
 https://jsfiddle.net/elgillespie/uj7kdph9/
 
-### Externalizing content with templates
+## Externalizing content with templates
 
 - The `<template>` tag allows you to put unrendered content into your HTML file that you can then lookup and apply to your web components.
 
@@ -123,11 +122,11 @@ https://jsfiddle.net/elgillespie/uj7kdph9/
 
 - Use `template.content.cloneNode(true)` to copy the content into your Shadow DOM.
 
-### x. Separate HTML and JavaScript
+## x. Separate HTML and JavaScript
 
 https://jsfiddle.net/elgillespie/y3dtcr16/
 
-### Named content using slots
+## Named content using slots
 
 - The `<slot name="..."></slot>` tag goes in your web component's HTML template.
 
@@ -139,11 +138,11 @@ https://jsfiddle.net/elgillespie/y3dtcr16/
 
 - If a slot's content changes, the browser will automatically apply those changes to your web component and rerender it.
 
-### x. Automatically set content with slots
+## x. Automatically set content with slots
 
 https://jsfiddle.net/elgillespie/qxemtbck/
 
-### Styling a web component
+## Styling a web component
 
 - Put a `<style></style>` tag at the top of your component's template
 
@@ -153,11 +152,11 @@ https://jsfiddle.net/elgillespie/qxemtbck/
 
 - Use the `:host` selector to apply default styles like `display: block`
 
-### x. A stylish page title component
+## x. A stylish page title component
 
 https://jsfiddle.net/elgillespie/7szafo8c/
 
-### Writing access methods for web components
+## Writing access methods for web components
 
 Writing getters, setters, and other access functions for a web component will
 make it simpler to use in JavaScript.
@@ -174,7 +173,7 @@ make it simpler to use in JavaScript.
 - Writing named methods for web components open up new ways to use components
   and makes them easier to test.
 
-### x. Accessing features of a web component with JavaScript
+## x. Accessing features of a web component with JavaScript
 
 https://jsfiddle.net/elgillespie/58rL7vsu/
 
@@ -184,7 +183,7 @@ https://jsfiddle.net/elgillespie/58rL7vsu/
 
 3. Use `gameEntry.rename()` to trigger the rename functionality
 
-### Making parts of web components styleable
+## Making parts of web components styleable
 
 It is possible to allow external stylesheets to style web components, even if
 they are in a Shadow DOM!
@@ -198,7 +197,7 @@ they are in a Shadow DOM!
 - The `element-name::part(partName)` pseudo-selector is used to style exposed
   parts of a web component in an external stylesheet.
 
-### x. Styling parts of a web component
+## x. Styling parts of a web component
 
 https://jsfiddle.net/elgillespie/7roqxfze/
 
@@ -206,7 +205,7 @@ https://jsfiddle.net/elgillespie/7roqxfze/
 
 2. Each "part" can be selected and styled in external CSS
 
-### Loading web components for use
+## Loading web components for use
 
 ES Modules are a standard and widely available feature of all modern
 browsers. JavaScript files can be loaded from both HTML and other JS
@@ -221,11 +220,11 @@ files.
 
 - Add `type="module"` to your `<script>` tags in HTML to load ES Module files.
 
-### Exporting and importing a web component
+## Exporting and importing a web component
 
 https://egillespie.github.io/web-component-intro/examples/es-module/
 
-### An improved code editor experience
+## An improved code editor experience
 
 Having all the JS, CSS, and HTML for a web component in a single file is
 sometimes preferred, but without syntax highlighting it's not a great
@@ -240,11 +239,11 @@ experience.
 
 - Shout out to Benjamin Asher for sharing this! 🤘
 
-### x. Highlight those templates
+## x. Highlight those templates
 
 ![Syntax highlighted string literals](screenshots/es6-highlighting.png)
 
-### Code and questions
+## Code and questions
 
 - [Presentation source code](https://github.com/egillespie/web-component-intro)
 
@@ -252,4 +251,4 @@ experience.
 
 - [ES Modules on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
 
-- Questions? Email `erik.gillespie@gmail.com`
+- Questions?
