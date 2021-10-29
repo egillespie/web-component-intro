@@ -8,7 +8,7 @@ const html = /* html */ `
   <div id="slides"></div>
 `
 
-export default class MdSlides extends HTMLElement {
+export default class MdPresentation extends HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
@@ -42,4 +42,4 @@ export default class MdSlides extends HTMLElement {
   }
 }
 
-customElements.define('md-slides', MdSlides)
+customElements.define('md-presentation', MdPresentation)
