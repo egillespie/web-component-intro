@@ -3,14 +3,13 @@ import syncAttribute from './helpers/sync-attribute.mjs'
 import invokeOnChangeAttribute from './helpers/invoke-on-change-attribute.mjs'
 import splitMarkdownSections from './helpers/split-markdown-sections.mjs'
 
-const html = /* html */ `<div id="presentation"></div>`
-
 export default class MdPresentation extends HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
-    this.shadowRoot.innerHTML = html
-    this._slides = this.shadowRoot.getElementById('presentation')
+    this.shadowRoot.innerHTML = /* html */ `
+      <div id="presentation" part="presentation"></div>
+    `
   }
 
   get src () {
@@ -32,14 +31,16 @@ export default class MdPresentation extends HTMLElement {
   async onChangeSrc (newSrc) {
     const response = await fetch(newSrc)
     const markdown = await response.text()
-    const sections = splitMarkdownSections(markdown)
+    const mdSlides = splitMarkdownSections(markdown)
       .map((md, index) => /* html */ `
-        <section id="slide-${index}" class="slide">
-          ${marked.parse(md)}
-        </section>
+        <md-slide index="${index}">
+          <div slot="content">
+            ${marked.parse(md)}
+          </div>
+        </md-slide>
       `)
       .join('')
-    this._slides.innerHTML = sections
+    this.shadowRoot.firstElementChild.innerHTML = mdSlides
   }
 }
 
