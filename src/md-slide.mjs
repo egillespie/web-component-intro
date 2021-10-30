@@ -4,8 +4,8 @@ import {
 } from './helpers.mjs'
 
 const html = /* html */ `
-  <section part="slide">
-    <slot name="content"></slot>
+  <section>
+    <slot></slot>
   </section>
 `
 
@@ -33,7 +33,7 @@ export default class MdSlide extends HTMLElement {
   }
 
   onChangeIndex (newIndex) {
-    this.shadowRoot.firstElementChild.id = `slide-${newIndex}`
+    this.shadowRoot.querySelector('section').id = `slide-${newIndex}`
   }
 }
 

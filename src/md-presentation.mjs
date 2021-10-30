@@ -5,13 +5,21 @@ import {
   splitMarkdownSections
 } from './helpers.mjs'
 
+const html = /* html */ `
+  <style>
+    md-slide h1,
+    md-slide h2 {
+      font-family: var(--ff-sans);
+    }
+  </style>
+  <main id="presentation"></main>
+`
+
 export default class MdPresentation extends HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
-    this.shadowRoot.innerHTML = /* html */ `
-      <main id="presentation" part="presentation"></main>
-    `
+    this.shadowRoot.innerHTML = html
   }
 
   get src () {
@@ -36,13 +44,11 @@ export default class MdPresentation extends HTMLElement {
     const mdSlides = splitMarkdownSections(markdown)
       .map((md, index) => /* html */ `
         <md-slide index="${index}">
-          <div slot="content">
-            ${marked.parse(md)}
-          </div>
+          <div>${marked.parse(md)}</div>
         </md-slide>
       `)
       .join('')
-    this.shadowRoot.firstElementChild.innerHTML = mdSlides
+    this.shadowRoot.getElementById('presentation').innerHTML = mdSlides
   }
 }
 
