@@ -1,14 +1,16 @@
 import marked from 'https://cdn.jsdelivr.net/npm/marked@3.0.8/lib/marked.esm.js'
-import syncAttribute from './helpers/sync-attribute.mjs'
-import invokeOnChangeAttribute from './helpers/invoke-on-change-attribute.mjs'
-import splitMarkdownSections from './helpers/split-markdown-sections.mjs'
+import {
+  syncAttribute,
+  invokeOnChangeAttribute,
+  splitMarkdownSections
+} from './helpers.mjs'
 
 export default class MdPresentation extends HTMLElement {
   constructor () {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.innerHTML = /* html */ `
-      <div id="presentation" part="presentation"></div>
+      <main id="presentation" part="presentation"></main>
     `
   }
 

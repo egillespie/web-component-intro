@@ -1,5 +1,7 @@
-import syncAttribute from './helpers/sync-attribute.mjs'
-import invokeOnChangeAttribute from './helpers/invoke-on-change-attribute.mjs'
+import {
+  syncAttribute,
+  invokeOnChangeAttribute
+} from './helpers.mjs'
 
 const html = /* html */ `
   <section part="slide">
