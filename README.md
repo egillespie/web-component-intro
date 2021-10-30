@@ -2,11 +2,11 @@
 
 **By Erik Gillespie**
 
-An introduction to web components using lots of examples. Even the slides are written with web components (I know, very meta).
+An introduction to web components using lots of examples. Even the slides are written with web components! (so meta)
 
 To experience this presention, visit:
 
-https://egillespie.github.io/web-component-intro
+[egillespie.github.io/web-component-intro](https://egillespie.github.io/web-component-intro)
 
 ## About the presenter
 

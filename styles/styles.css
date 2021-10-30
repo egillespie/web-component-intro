@@ -10,6 +10,9 @@
 :root {
   --bg-color: #00285D;
   --fg-color: #ffffff;
+  --link-color: #ffffe0;
+  --grid-color: #173b6b;
+  --grid-size: .2rem;
   --ff-sans: 'Archive', sans-serif;
   --ff-mono: 'Courier Prime', monospace;
 }
@@ -31,6 +34,12 @@ body {
   background-color: var(--bg-color);
   color: var(--fg-color);
   margin: 0;
+  padding: 0;
   font-family: var(--ff-mono);
-  font-weight: bold;
+  line-height: 1.5;
+  background-image:
+    linear-gradient(var(--grid-color) var(--grid-size), transparent var(--grid-size)),
+    linear-gradient(90deg, var(--grid-color) var(--grid-size), transparent var(--grid-size));
+  background-size: 10rem 10rem;
+  background-position: -1rem -1rem;
 }
