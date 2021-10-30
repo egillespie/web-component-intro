@@ -74,7 +74,7 @@ const html = /* html */ `
     }
 
     .slide[data-index="0"] p {
-      display: inline-block;
+      display: block;
       margin: 2rem;
     }
   </style>
