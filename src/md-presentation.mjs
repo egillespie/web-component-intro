@@ -7,17 +7,23 @@ import {
 
 const html = /* html */ `
   <style>
+    :host {
+      --text-shadow: #00ffff -2px 0 0, #ff00ff 2px 0 0;
+    }
+
     main {
       margin: 0;
       padding: 2rem;
       position: absolute;
       top: 0;
       bottom: 0;
+      left: 0;
+      right: 0;
     }
 
     h1, h2 {
       font-family: var(--ff-sans);
-      text-shadow: #00ffff -2px 0 0, #ff00ff 2px 0 0;
+      text-shadow: var(--text-shadow);
     }
 
     h1 {
@@ -28,12 +34,14 @@ const html = /* html */ `
     h2 {
       font-size: 3rem;
       border-bottom: 4px double var(--fg-color);
+      padding-left: 1rem;
     }
 
     img {
       display: block;
-      max-width: 100%;
-      margin: auto;
+      max-width: 70vw;
+      max-height: 70vh;
+      margin: 0 auto;
       filter: drop-shadow(0 0 16px black)
     }
 
@@ -51,6 +59,43 @@ const html = /* html */ `
       background-color: #222;
       border-radius: 4px;
       padding: 4px 8px;
+    }
+
+    button.nav {
+      border: none;
+      background-color: transparent;
+      color: var(--fg-color);
+      cursor: pointer;
+      font-size: 2rem;
+      font-weight: bold;
+      font-family: var(--ff-sans);
+      text-shadow: var(--text-shadow);
+      outline: none;
+    }
+
+    button.nav:hover {
+      text-decoration: underline;
+    }
+
+    button.nav.off {
+      cursor: not-allowed;
+      opacity: 0.2;
+    }
+
+    button.nav.off:hover {
+      text-decoration: none;
+    }
+
+    button.prev {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+    }
+
+    button.next {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
     }
 
     .slide {
@@ -79,6 +124,8 @@ const html = /* html */ `
     }
   </style>
   <main id="presentation"></main>
+  <button id="prev-button" class="nav prev">&lt;</button>
+  <button id="next-button" class="nav next">&gt;</button>
 `
 
 export default class MdPresentation extends HTMLElement {
@@ -86,6 +133,10 @@ export default class MdPresentation extends HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.innerHTML = html
+    this.shadowRoot.getElementById('prev-button')
+      .addEventListener('click', this.previousSlide.bind(this))
+    this.shadowRoot.getElementById('next-button')
+      .addEventListener('click', this.nextSlide.bind(this))
   }
 
   connectedCallback () {
@@ -170,6 +221,17 @@ export default class MdPresentation extends HTMLElement {
     const newSlide = this.shadowRoot.querySelector(`[data-index="${newIndex}"]`)
     if (newSlide) {
       newSlide.classList.add('active')
+    }
+    if (parseInt(newIndex) === 0) {
+      this.shadowRoot.getElementById('prev-button').classList.add('off')
+    } else {
+      this.shadowRoot.getElementById('prev-button').classList.remove('off')
+    }
+    const presentation = this.shadowRoot.getElementById('presentation')
+    if (parseInt(newIndex) === presentation.childElementCount - 1) {
+      this.shadowRoot.getElementById('next-button').classList.add('off')
+    } else {
+      this.shadowRoot.getElementById('next-button').classList.remove('off')
     }
   }
 }
