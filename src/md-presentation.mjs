@@ -1,4 +1,4 @@
-import marked from 'https://cdn.jsdelivr.net/npm/marked@3.0.8/lib/marked.esm.js'
+import marked from './marked.mjs'
 import {
   syncAttribute,
   invokeOnChangeAttribute,
@@ -37,12 +37,25 @@ const html = /* html */ `
       padding-left: 1rem;
     }
 
+    li {
+      list-style-type: '⁖ ';
+    }
+
     img {
       display: block;
-      max-width: 70vw;
+      max-width: 100%;
       max-height: 70vh;
       margin: 0 auto;
-      filter: drop-shadow(0 0 16px black)
+      filter: drop-shadow(0 0 8px black)
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      max-width: 800px;
+      height: 50vh;
+      margin: 2rem auto 0;
+      filter: drop-shadow(0 0 8px black)
     }
 
     a {

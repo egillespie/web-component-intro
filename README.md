@@ -10,51 +10,49 @@ To experience this presention, visit:
 
 ## About the presenter
 
-- Erik Gillespie `erik.gillespie@gmail.com`
+- Erik Gillespie
 
 - My pronouns are he/him or they/them
 
-- I occasionally teach web dev at MSU
+- `erik.gillespie@gmail.com`
 
 - I help out at Lansing Codes and Lansing Makers Network
 
-- I'm a board gamer and reader
+- I teach web dev at MSU and homeschool my kiddo
 
-- I like finding ways to make my life greener and kinder to others
-
-- Mostly I homeschool my kiddo
+- I love board games and a good book
 
 ## Helpful skills to know
 
-Web components will be easier to use if you're comfortable with:
-
-- Basic JavaScript syntax
+I think it's easier to learn web components if you know a bit of:
 
 - HTML
 
+- Basic JavaScript syntax
+
 - Accessing the DOM with JavaScript
 
-- ES6 class syntax
+- JavaScript classes
 
 - A little CSS
 
 ## Web components defined
 
-An API in all popular browsers that lets you create custom elements.
+Custom HTML elements powered by JavaScript and available in all modern web browsers.
 
 - Declare a class that extends `HTMLElement`
 
-- Write a constructor with no arguments and calls `super()`
+- Write a constructor with no arguments and call `super()`
 
 - Use `customElements.define('tag-name', ClassName)` to register your web component
 
-- Custom element names must contain a hyphen (`-`)
+- Tag names must contain a hyphen (`-`)
 
-- You must include open and close tags in the HTML: `<my-tag></my-tag>`
+- You must have both open and close tags: `<my-tag></my-tag>`
 
 ## x. Show the page title
 
-Nothing special, just a custom tag.
+Awwww, our first custom tag!
 
 https://jsfiddle.net/elgillespie/460mprwo/
 
@@ -74,7 +72,7 @@ Custom elements can make use of their own DOM, known as the Shadow DOM, to prote
 
 Notice how page styles are not applied to elements in the Shadow DOM.
 
-https://jsfiddle.net/elgillespie/hoqc0g3p/24/
+https://jsfiddle.net/elgillespie/hoqc0g3p/
 
 ## Using attributes
 
@@ -223,6 +221,8 @@ files.
 ## Exporting and importing a web component
 
 https://egillespie.github.io/web-component-intro/examples/es-module/
+
+![Web component as ES Module](screenshots/es-module.png)
 
 ## An improved code editor experience
 
