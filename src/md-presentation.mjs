@@ -35,6 +35,7 @@ const html = /* html */ `
       font-size: 3rem;
       border-bottom: 4px double var(--fg-color);
       padding-left: 1rem;
+      margin-top: 1rem;
     }
 
     li {
@@ -221,8 +222,9 @@ export default class MdPresentation extends HTMLElement {
       .join('')
     const presentation = this.shadowRoot.getElementById('presentation')
     presentation.innerHTML = slides
+    const startSlide = window.location.hash.substr(1) || 0
     if (presentation.childElementCount > 0) {
-      this.activeSlide = 0
+      this.activeSlide = startSlide
     }
   }
 
@@ -245,6 +247,10 @@ export default class MdPresentation extends HTMLElement {
       this.shadowRoot.getElementById('next-button').classList.add('off')
     } else {
       this.shadowRoot.getElementById('next-button').classList.remove('off')
+    }
+    const savedSlide = window.location.hash.substr(1)
+    if (savedSlide != newIndex) {
+      window.location.hash = newIndex
     }
   }
 }

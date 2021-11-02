@@ -14,7 +14,7 @@ To experience this presention, visit:
 
 - My pronouns are he/him or they/them
 
-- `erik.gillespie@gmail.com`
+- Email me at [`erik.gillespie@gmail.com`](mailto:erik.gillespie@gmail.com)
 
 - I help out at Lansing Codes and Lansing Makers Network
 
@@ -38,61 +38,81 @@ I think it's easier to learn web components if you know a bit of:
 
 ## Web components defined
 
-Custom HTML elements powered by JavaScript and available in all modern web browsers.
+A browser API that allows custom HTML elements to be made with JavaScript.
 
-- Declare a class that extends `HTMLElement`
+Here's how:
 
-- Write a constructor with no arguments and call `super()`
+- Make a `class` that extends `HTMLElement`
 
-- Use `customElements.define('tag-name', ClassName)` to register your web component
+- Write a `constructor()` and call `super()`
 
-- Tag names must contain a hyphen (`-`)
+- Set `this.innerHTML` to whatever you want
 
-- You must have both open and close tags: `<my-tag></my-tag>`
+- Call `customElements.define('tag-name', ClassName)` below your class
+
+- Tag names must contain a `-` hyphen
+
+- Use open and close tags: `<my-tag></my-tag>`
 
 ## x. Show the page title
 
-Awwww, our first custom tag!
+Awwww, our first custom tag! 😍
 
 https://jsfiddle.net/elgillespie/460mprwo/
 
-## Introducing the Shadow DOM
+## The Shadow DOM
 
-Custom elements can make use of their own DOM, known as the Shadow DOM, to protect their styles and structure from outside influence. Kinda.
+Custom elements can have their own DOM (the Shadow DOM) to protect their CSS and HTML from *most* outside influences.
 
-- Some styles can still be inherited, but Shadow DOM elements do not have direct access to external style classes (and vice versa).
+Shadow DOMs:
 
-- External JavaScript also does not have direct access to elements in a Shadow DOM using the usual DOM API such as `getElementById`.
+- Create one with `this.attachShadow({mode: 'open'})` in the constructor
 
-- With the Shadow DOM, HTML `id` attributes in a component are not considered duplicates across your whole document.
+- Access it with `this.shadowRoot`
 
-- Use `this.shadowRoot` instead of `this` or `document` to use common browser APIs (such as `querySelector`) within your component.
+- Inherit styles from `:root`, `html`, and `body`
+
+- Can't affect external elements
+
+- Ignored by external JavaScript functions like `getElementById`
+
+- Get their own set of unique HTML `id` attributes
 
 ## x. Page title in a Shadow DOM
 
-Notice how page styles are not applied to elements in the Shadow DOM.
+Notice how page styles aren't applied to elements in the Shadow DOM.
 
 https://jsfiddle.net/elgillespie/hoqc0g3p/
 
 ## Using attributes
 
-Use `this.getAttribute` to lookup the value of an attribute on your component.
+- `this.getAttribute` reads the value of an attribute on your component
 
-## x. A radio input with a label
+- `this.setAttribute` adds or modifies an attribute
+
+- `this.removeAttribute` clears an attribute and its value
+
+- Use these in your `class` or to manipulate components with JavaScript
+
+## x. Radio input with a label
+
+This doesn't work in a Shadow DOM because the `name` attribute couldn't be shared!
 
 https://jsfiddle.net/elgillespie/7kspq9md/
 
 ## Handling attribute changes
 
-- Define a function as `static get observedAttributes` that returns an array of attribute names you want to watch.
+- `static get observedAttributes ()` returns an array of attribute names to watch
 
-- Make an `attributeChangedCallback (name, oldValue, newValue)` function that will be called each time an attribute returned by `observedAttributes` is changed.
+- `attributeChangedCallback (name, oldValue, newValue)` is called each time an observed attribute is changed
 
-- Write some logic to identify which attribute changed, then update the state of your component accordingly.
+- Use conditionals to identify which attribute changed, then update your component using the new value
 
-- Minimize the number of changes you make (i.e. avoid redrawing the entire component) because causing lots of changes can cause flickers and noise in screen readers!
+- Minimize the DOM changes you make avoid flickering and screen reader noise
 
 ## x. Responding to attribute changes
+
+Notice how `innerHTML` is not rewritten in `attributeChangedCallback`.
 
 https://jsfiddle.net/elgillespie/ed4scw1n/
 
