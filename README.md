@@ -116,17 +116,15 @@ Notice how `innerHTML` is not rewritten in `attributeChangedCallback`.
 
 https://jsfiddle.net/elgillespie/ed4scw1n/
 
-## Knowing when your component is (or isn't) in a DOM
+## Knowing when your component's in a DOM
 
-Special functions exist that allow your components to respond to being placed in or removed from a DOM.
+- When a component is removed from a DOM, the browser automatically removes event listeners attached within the element
 
-- Define a `connectedCallback ()` function if your component needs to run some code when it is added to the page (or any DOM).
+- `connectedCallback ()` is called when a component is added to the page (or any DOM)
 
-- Define a `disconnectedCallback ()` function if your component needs to run some (cleanup) code when it is removed from the page (or any DOM).
+- `disconnectedCallback ()` is called when a component is removed from the page (or any DOM)
 
-- You may need this when your element needs to communicate with _other_ elements on the page, such as a `window` event listener to capture key presses or when broadcasting custom events.
-
-- When a custom element is removed from a DOM, the browser will automatically remove its own and children event listeners so you don't usually need to manage this on your own!
+- Use when an element needs to add an event listener to _another_ element on the page
 
 ## x. Web components looking to connect
 
@@ -134,11 +132,13 @@ https://jsfiddle.net/elgillespie/uj7kdph9/
 
 ## Externalizing content with templates
 
-- The `<template>` tag allows you to put unrendered content into your HTML file that you can then lookup and apply to your web components.
+- The `<template>` tag can hold any HTML content you want to use to organize your component
 
-- The `<template>` element has a `.content` property that contains the document fragment with all of the content of the template.
+- `<template>` and any content in it is not rendered on the page
 
-- Use `template.content.cloneNode(true)` to copy the content into your Shadow DOM.
+- Use the `.content` property to access the template's content
+
+- Use `template.content.cloneNode(true)` to copy the content into your Shadow DOM
 
 ## x. Separate HTML and JavaScript
 
@@ -146,17 +146,17 @@ https://jsfiddle.net/elgillespie/y3dtcr16/
 
 ## Named content using slots
 
-- The `<slot name="..."></slot>` tag goes in your web component's HTML template.
+- `<slot name="..."></slot>` tag goes in your web component's HTML template
 
-- Use the `slot="..."` attribute on the inner HTML of your custom element.
+- Use the `slot="..."` attribute on the inner HTML of your custom element
 
-- The `<slot name="..."></slot` tag will automatically be substituted with `slot="..."` element and all its children.
+- The `<slot name="..."></slot` tag will be automatically replaced with the matching `slot="..."` element
 
-- Putting content between the `<slot>` and `</slot>` tags will provide default content for that slot.
+- Content between the `<slot>` and `</slot>` tags will be used as the default content for that slot
 
-- If a slot's content changes, the browser will automatically apply those changes to your web component and rerender it.
+- Changes to a slot's content will automatically sync with your component
 
-## x. Automatically set content with slots
+## x. Synchronized slot content
 
 https://jsfiddle.net/elgillespie/qxemtbck/
 
@@ -168,75 +168,67 @@ https://jsfiddle.net/elgillespie/qxemtbck/
 
 - Use a Shadow DOM so your styles only affect your component
 
-- Use the `:host` selector to apply default styles like `display: block`
+- Use the `:host` selector to set default styles like `display: block` to your custom element
 
 ## x. A stylish page title component
 
 https://jsfiddle.net/elgillespie/7szafo8c/
 
-## Writing access methods for web components
+## Access methods for web components
 
-Writing getters, setters, and other access functions for a web component will
-make it simpler to use in JavaScript.
+Write getters, setters, and other functions in your class to make it
+simpler to use in JavaScript.
 
-- Use `get <attribute> ()` and `this.getAttribute('<attribute>')` together to
-  read attribute values programmatically.
+- `get <attribute> ()` and `this.getAttribute('<attribute>')` are useful for reading attribute values
 
-- Use `set <attribute> (value)`, `this.setAttribute('<attribute>', value)`, and
-  `this.removeAttribute('<attribute>')` to modify attributes in JavaScript.
+- `set <attribute> (value)` and `this.setAttribute('<attribute>', value)` can be used to modify attributes
 
-- Make sure all data needed by your web component can be set from both
-  JavaScript _and_ HTML!
+- If creating elements in JavaScript, write these functions for all attributes
 
-- Writing named methods for web components open up new ways to use components
-  and makes them easier to test.
+- More class methods means more ways to use and test your components
 
-## x. Accessing features of a web component with JavaScript
+## x. Using web components in JavaScript
+
+`.name` and `.rename()` make the component nicer to
+use in JavaScript.
 
 https://jsfiddle.net/elgillespie/58rL7vsu/
 
-1. Use `gameEntry.name` to get or set the `'name'` attribute
-
-2. `<game-entry name="..."></game-entry>` works too
-
-3. Use `gameEntry.rename()` to trigger the rename functionality
-
 ## Making parts of web components styleable
 
-It is possible to allow external stylesheets to style web components, even if
-they are in a Shadow DOM!
+There's a way to allow parts of a component to be styled with external CSS.
 
 - Set the `part` attribute on elements in the web component to expose them to
-  external styling.
+  external styling
 
 - The `part` attribute is like the `class` attribute: you can add one or more
-  part names separated by spaces.
+  part names separated by spaces
 
-- The `element-name::part(partName)` pseudo-selector is used to style exposed
-  parts of a web component in an external stylesheet.
+- `my-tag::part(partName)` pseudo-selector can style
+  parts of a web component from an external stylesheet
+
+- Child elements can't be selected with `::part`
 
 ## x. Styling parts of a web component
 
 https://jsfiddle.net/elgillespie/7roqxfze/
 
-1. See how the values in the `part` attribute are used in HTML
+## Loading web components
 
-2. Each "part" can be selected and styled in external CSS
+- ES Modules are a standard, widely available feature of all modern
+browsers
 
-## Loading web components for use
+- JavaScript files can be loaded from HTML and other JS
+files this way
 
-ES Modules are a standard and widely available feature of all modern
-browsers. JavaScript files can be loaded from both HTML and other JS
-files.
+- Put web components in their own files with the `.mjs` extension
 
-- Put each web component in a separate file with the `.mjs` extension.
+- Put `export default` before the `class` keyword of the web component
 
-- Use `export default` the `class` keyword when defining a web component.
+- Use `import ClassName from 'classname.mjs'` to load modules from
+  other JavaScript files
 
-- Use `import ClassName from 'classname.mjs'` to load a JavaScript file from
-  another JavaScript file.
-
-- Add `type="module"` to your `<script>` tags in HTML to load ES Module files.
+- Add `type="module"` to your `<script>` tags
 
 ## Exporting and importing a web component
 
@@ -246,29 +238,27 @@ https://egillespie.github.io/web-component-intro/examples/es-module/
 
 ## An improved code editor experience
 
-Having all the JS, CSS, and HTML for a web component in a single file is
-sometimes preferred, but without syntax highlighting it's not a great
-experience.
+Putting all the JS, CSS, and HTML for a web component in one file is
+sometimes preferred, but no syntax highlighting of HTML and CSS isn't.
 
-- **VS Code:** Install the `es6-string-html` extension.
+- **VS Code:** Install the `es6-string-html` extension
 
-- **Atom:**: Run `apm install language-babel` in a terminal.
+- **Atom:** Run `apm install language-babel` in a terminal
 
-- Add `/* html */` before your template string literal to enable syntax
-  highlighting.
+- Add `/* html */` before your template string to syntax highlight it
 
-- Shout out to Benjamin Asher for sharing this! 🤘
+- Shout-out to Benjamin Asher for this tip!
 
 ## x. Highlight those templates
 
 ![Syntax highlighted string literals](screenshots/es6-highlighting.png)
 
-## Code and questions
+## Questions and Answers
+
+For more information, check out these links:
 
 - [Presentation source code](https://github.com/egillespie/web-component-intro)
 
 - [Web Components on MDN](https://developer.mozilla.org/en-US/docs/Web/Web_Components)
 
 - [ES Modules on MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
-
-- Questions?
