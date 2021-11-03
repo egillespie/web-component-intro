@@ -211,17 +211,22 @@ export default class MdPresentation extends HTMLElement {
   }
 
   async onChangeSrc (newSrc) {
+    // Download the Markdown file
     const response = await fetch(newSrc)
     const markdown = await response.text()
+
+    // Divide Markdown into rendered HTML sections
     const slides = splitMarkdownSections(markdown)
       .map((md, index) => /* html */ `
-        <section id="slide-${index}" data-index="${index}" class="slide">
+        <section data-index="${index}" class="slide">
           ${marked.parse(md)}
         </section>
       `)
       .join('')
     const presentation = this.shadowRoot.getElementById('presentation')
     presentation.innerHTML = slides
+
+    // Show the first or bookmarked slide
     const startSlide = window.location.hash.substr(1) || 0
     if (presentation.childElementCount > 0) {
       this.activeSlide = startSlide
@@ -229,14 +234,19 @@ export default class MdPresentation extends HTMLElement {
   }
 
   onChangeActiveSlide (newIndex, oldIndex) {
+    // Hide the old slide
     const oldSlide = this.shadowRoot.querySelector(`[data-index="${oldIndex}"]`)
     if (oldSlide) {
       oldSlide.classList.remove('active')
     }
+
+    // Show the new slide
     const newSlide = this.shadowRoot.querySelector(`[data-index="${newIndex}"]`)
     if (newSlide) {
       newSlide.classList.add('active')
     }
+
+    // Enable / disable the navigation buttons
     if (parseInt(newIndex) === 0) {
       this.shadowRoot.getElementById('prev-button').classList.add('off')
     } else {
@@ -248,6 +258,8 @@ export default class MdPresentation extends HTMLElement {
     } else {
       this.shadowRoot.getElementById('next-button').classList.remove('off')
     }
+
+    // Save the new slide index in the URL hash
     const savedSlide = window.location.hash.substr(1)
     if (savedSlide != newIndex) {
       window.location.hash = newIndex
