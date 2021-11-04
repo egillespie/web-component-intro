@@ -12,6 +12,7 @@ const html = /* html */ `
     }
 
     main {
+      overflow: hidden;
       margin: 0;
       padding: 2rem;
       position: absolute;
@@ -113,15 +114,20 @@ const html = /* html */ `
     }
 
     .slide {
+      margin: auto;
       padding: 0;
       border: 1px solid var(--bg-color);
       position: relative;
-      height: 100%;
       font-size: 1.5rem;
+      animation-duration: .5s;
     }
 
     .slide:not(.active) {
-      display: none;
+      animation-name: inactivate;
+    }
+
+    .slide.active {
+      animation-name: activate;
     }
 
     .slide[data-index="0"] {
@@ -135,6 +141,40 @@ const html = /* html */ `
     .slide[data-index="0"] p {
       display: block;
       margin: 2rem;
+    }
+    
+    @keyframes activate {
+      0% {
+        transform: translateY(-700px) scale(.7);
+        opacity: .7;
+      }
+
+      80% {
+        transform: translateY(0) scale(.7);
+        opacity: .7;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes inactivate {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      20% {
+        transform: translateY(0) scale(.7);
+        opacity: .7;
+      }
+
+      100% {
+        transform: translateY(-700px) scale(.7);
+        opacity: .7;
+      }
     }
   </style>
   <main id="presentation"></main>
@@ -168,6 +208,12 @@ export default class MdPresentation extends HTMLElement {
       } else if (event.code === 'ArrowRight') {
         this.nextSlide()
       }
+    } else if (event.type === 'animationend') {
+      const slide = event.target
+      if (!slide.classList.contains('active')) {
+        slide.style.display = 'none'
+        this.displayActiveSlide()
+      }
     }
   }
 
@@ -183,6 +229,15 @@ export default class MdPresentation extends HTMLElement {
     const slideCount = this.shadowRoot.getElementById('presentation').childElementCount
     if (slideIndex < slideCount - 1) {
       this.activeSlide = slideIndex + 1
+    }
+  }
+
+  displayActiveSlide () {
+    const index = this.activeSlide
+    const newSlide = this.shadowRoot.querySelector(`[data-index="${index}"]`)
+    if (newSlide) {
+      newSlide.style.display = 'block'
+      newSlide.classList.add('active')
     }
   }
 
@@ -218,13 +273,17 @@ export default class MdPresentation extends HTMLElement {
     // Divide Markdown into rendered HTML sections
     const slides = splitMarkdownSections(markdown)
       .map((md, index) => /* html */ `
-        <section data-index="${index}" class="slide">
+        <section data-index="${index}" class="slide" style="display: none">
           ${marked.parse(md)}
         </section>
       `)
       .join('')
     const presentation = this.shadowRoot.getElementById('presentation')
     presentation.innerHTML = slides
+    const owner = this
+    this.shadowRoot.querySelectorAll('.slide').forEach(slide => {
+      slide.addEventListener('animationend', owner)
+    })
 
     // Show the first or bookmarked slide
     const startSlide = window.location.hash.substr(1) || 0
@@ -234,16 +293,18 @@ export default class MdPresentation extends HTMLElement {
   }
 
   onChangeActiveSlide (newIndex, oldIndex) {
-    // Hide the old slide
+    // Save the new slide index in the URL hash
+    const savedSlide = window.location.hash.substr(1)
+    if (savedSlide != newIndex) {
+      window.location.hash = newIndex
+    }
+
+    // Start transition away from old slide
     const oldSlide = this.shadowRoot.querySelector(`[data-index="${oldIndex}"]`)
     if (oldSlide) {
       oldSlide.classList.remove('active')
-    }
-
-    // Show the new slide
-    const newSlide = this.shadowRoot.querySelector(`[data-index="${newIndex}"]`)
-    if (newSlide) {
-      newSlide.classList.add('active')
+    } else {
+      this.displayActiveSlide()
     }
 
     // Enable / disable the navigation buttons
@@ -257,12 +318,6 @@ export default class MdPresentation extends HTMLElement {
       this.shadowRoot.getElementById('next-button').classList.add('off')
     } else {
       this.shadowRoot.getElementById('next-button').classList.remove('off')
-    }
-
-    // Save the new slide index in the URL hash
-    const savedSlide = window.location.hash.substr(1)
-    if (savedSlide != newIndex) {
-      window.location.hash = newIndex
     }
   }
 }
